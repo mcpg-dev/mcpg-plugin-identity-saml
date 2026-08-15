@@ -1,0 +1,18 @@
+schema: mcpg.dev/plugin/v1
+id: dev.mcpg.identity.saml
+name: SAML 2.0 Identity Resolver
+license: BUSL-1.1
+description: |
+  Resolves caller identity from a SAML 2.0 assertion carried in a configured
+  header (default `X-SAML-Assertion`, base64). The IdP's XML signature is
+  verified (exclusive-C14N via libxml2 + pure-Rust RSA) against the
+  operator-configured IdP certificate — never the certificate embedded in the
+  message — with signature-wrapping (XSW) defenses (exactly one assertion, a
+  direct-child signature that covers that assertion's ID). `Conditions` (time
+  window + audience) and `Issuer` are validated; `Subject`/attributes become
+  the identity. Local verification; no outbound network. Builds against system
+  libxml2; no OpenSSL.
+class: identity_provider
+runtime: native-cdylib-v1
+protocol_version: "1.0"
+required_capabilities: []

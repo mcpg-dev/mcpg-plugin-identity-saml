@@ -1,0 +1,52 @@
+[package]
+name = "mcpg-plugin-identity-saml"
+version = "0.1.0-alpha.15"
+license = "BUSL-1.1"
+edition = "2024"
+description = """
+SAML 2.0 (Web SSO POST binding) identity plugin for mcpg
+(dev.mcpg.identity.saml). Verifies the IdP's XML signature on a SAML Response/
+Assertion (exclusive-C14N via libxml2 + pure-Rust RSA), validates conditions,
+and maps attributes to roles/groups. The trust anchor is the operator-
+configured IdP certificate — never the certificate embedded in the message.
+
+NOTE: builds against system libxml2 (libxml2-dev). Kept out of the workspace
+default-members so a plain `cargo build` does not require it; build explicitly
+with `-p mcpg-plugin-identity-saml`.
+"""
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[features]
+default = ["cdylib-export"]
+cdylib-export = []
+static-firstparty = []
+integration-tests = []
+
+[dependencies]
+mcpg-plugin-protocol = { git = "https://github.com/mcpg-dev/mcpg-plugin-protocol", tag = "v0.1.0-beta.13", version = "=0.1.0-beta.13" }
+mcpg-plugin-sdk = { git = "https://github.com/mcpg-dev/mcpg-plugin-sdk", tag = "v0.1.0-beta.13", version = "=0.1.0-beta.13" }
+async-trait = "0.1"
+base64 = "0.22"
+# DOM parse + navigate + exclusive-C14N (libxml2-backed — the battle-tested
+# canonicalizer; we do NOT hand-roll C14N). No crypto, no openssl.
+libxml = "0.3"
+# Pure-Rust signature verification (NOT openssl).
+rsa = { version = "0.9", features = ["sha2"] }
+sha1 = { version = "0.10", features = ["oid"] }
+sha2 = { version = "0.10", features = ["oid"] }
+x509-cert = { version = "0.2", features = ["pem"] }
+# Times in SAML Conditions (NotBefore/NotOnOrAfter).
+time = { version = "0.3", features = ["parsing", "macros"] }
+metrics = "0.24"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+thiserror = "2.0"
+tracing = "0.1"
+
+[dev-dependencies]
+serde_json = "1.0"
+# `formatting` (test-only): the integration test formats RFC3339 timestamps
+# for assertion Conditions. The library only needs `parsing`.
+time = { version = "0.3", features = ["formatting"] }
