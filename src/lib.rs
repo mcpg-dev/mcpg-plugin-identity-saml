@@ -86,7 +86,7 @@ fn record_resolve_outcome(result: &IdentityResolution, elapsed: std::time::Durat
             "saml identity resolved"
         ),
         IdentityResolution::None => debug!("saml identity: no assertion header — fall through"),
-        IdentityResolution::Invalid { reason } => {
+        IdentityResolution::Invalid { reason, .. } => {
             warn!(reason = %reason, "saml identity: rejected")
         }
     }
@@ -213,6 +213,7 @@ impl SamlIdentityPlugin {
             Err(_) => {
                 return IdentityResolution::Invalid {
                     reason: "malformed SAML assertion (base64)".into(),
+                    response_headers: Vec::new(),
                 };
             }
         };
@@ -232,6 +233,7 @@ impl SamlIdentityPlugin {
                 warn!(detail = %detail, "saml identity: assertion rejected");
                 IdentityResolution::Invalid {
                     reason: "invalid SAML assertion".into(),
+                    response_headers: Vec::new(),
                 }
             }
         }
