@@ -15,6 +15,21 @@ Part of the legacy → MCP bridge suite.
 > OpenSSL**. Kept out of the workspace `default-members`; build explicitly
 > with `-p mcpg-plugin-identity-saml`.
 
+
+## Platforms
+
+Published for **linux-gnu (amd64, arm64)** and **darwin-arm64** only.
+
+The XML-signature stack this plugin verifies assertions with is native C, and
+no musl or Windows build of this plugin exists because of it.
+
+This matters at boot rather than at install. A gateway resolves a
+platform-agnostic `oci:` reference to `protocol-<major>-<os>-<arch>` for the
+host it is running on, and its only fallback is `wasi-wasm` — which this plugin
+does not publish either. So on Alpine, on a musl-based image, or on Windows the
+pull does not degrade: it fails, and the gateway does not start. Use a
+glibc-based image, or an Apple-silicon host, when this plugin is in the config.
+
 ## How it works
 
 Given the configured header (default `X-SAML-Assertion`) holding a base64
