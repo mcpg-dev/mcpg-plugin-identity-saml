@@ -1,6 +1,6 @@
 [package]
 name = "mcpg-plugin-identity-saml"
-version = "0.1.0-alpha.32"
+version = "0.1.0-alpha.38"
 license = "BUSL-1.1"
 edition = "2024"
 description = """
@@ -25,10 +25,10 @@ static-firstparty = []
 integration-tests = []
 
 [dependencies]
-mcpg-plugin-protocol = { git = "https://github.com/mcpg-dev/mcpg-plugin-protocol", tag = "v0.1.0-beta.29", version = "=0.1.0-beta.29" }
-mcpg-plugin-sdk = { git = "https://github.com/mcpg-dev/mcpg-plugin-sdk", tag = "v0.1.0-beta.30", version = "=0.1.0-beta.30" }
+mcpg-plugin-protocol = { git = "https://github.com/mcpg-dev/mcpg-plugin-protocol", tag = "v0.1.0-beta.35", version = "=0.1.0-beta.35" }
+mcpg-plugin-sdk = { git = "https://github.com/mcpg-dev/mcpg-plugin-sdk", tag = "v0.1.0-beta.36", version = "=0.1.0-beta.36" }
 async-trait = "0.1"
-base64 = "0.22"
+base64 = "0.23"
 # DOM parse + navigate + exclusive-C14N (libxml2-backed — the battle-tested
 # canonicalizer; we do NOT hand-roll C14N). No crypto, no openssl.
 libxml = "0.3"
@@ -36,7 +36,7 @@ libxml = "0.3"
 rsa = { version = "0.9", features = ["sha2"] }
 sha1 = { version = "0.10", features = ["oid"] }
 sha2 = { version = "0.10", features = ["oid"] }
-x509-cert = { version = "0.2", features = ["pem"] }
+x509-cert = { version = "0.3", features = ["pem"] }
 # Times in SAML Conditions (NotBefore/NotOnOrAfter).
 time = { version = "0.3", features = ["parsing", "macros"] }
 metrics = "0.24"

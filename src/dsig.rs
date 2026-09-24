@@ -35,8 +35,8 @@ pub fn rsa_pubkey_from_cert_pem(pem: &str) -> Result<RsaPublicKey, String> {
     let cert = Certificate::from_pem(pem.as_bytes())
         .map_err(|e| format!("parse IdP certificate PEM: {e}"))?;
     let spki_der = cert
-        .tbs_certificate
-        .subject_public_key_info
+        .tbs_certificate()
+        .subject_public_key_info()
         .to_der()
         .map_err(|e| format!("encode certificate SPKI: {e}"))?;
     RsaPublicKey::from_public_key_der(&spki_der)
