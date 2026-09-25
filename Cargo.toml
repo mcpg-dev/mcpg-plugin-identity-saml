@@ -1,6 +1,6 @@
 [package]
 name = "mcpg-plugin-identity-saml"
-version = "0.1.0-alpha.39"
+version = "0.1.0-alpha.40"
 license = "BUSL-1.1"
 edition = "2024"
 description = """
@@ -25,8 +25,8 @@ static-firstparty = []
 integration-tests = []
 
 [dependencies]
-mcpg-plugin-protocol = { git = "https://github.com/mcpg-dev/mcpg-plugin-protocol", tag = "v0.1.0-beta.36", version = "=0.1.0-beta.36" }
-mcpg-plugin-sdk = { git = "https://github.com/mcpg-dev/mcpg-plugin-sdk", tag = "v0.1.0-beta.37", version = "=0.1.0-beta.37" }
+mcpg-plugin-protocol = { git = "https://github.com/mcpg-dev/mcpg-plugin-protocol", tag = "v0.1.0-beta.37", version = "=0.1.0-beta.37" }
+mcpg-plugin-sdk = { git = "https://github.com/mcpg-dev/mcpg-plugin-sdk", tag = "v0.1.0-beta.38", version = "=0.1.0-beta.38" }
 async-trait = "0.1"
 base64 = "0.23"
 # DOM parse + navigate + exclusive-C14N (libxml2-backed — the battle-tested
